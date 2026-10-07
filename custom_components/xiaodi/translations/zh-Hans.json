@@ -1,0 +1,46 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "小嘀 智能门锁",
+        "description": "填入微信小程序抓包拿到的 sessionId。lockMac 留空则自动识别全部设备。",
+        "data": {
+          "session_id": "sessionId",
+          "lock_mac": "锁的 MAC（可留空）"
+        }
+      },
+      "reauth_confirm": {
+        "title": "重新认证",
+        "description": "{lock} 的 sessionId 已失效，请填入新的 sessionId。",
+        "data": {
+          "session_id": "sessionId"
+        }
+      }
+    },
+    "error": {
+      "auth": "sessionId 无效或已过期，请重新抓包获取。",
+      "cannot_connect": "无法连接服务器，请稍后重试。",
+      "lock_not_found": "该 MAC 下没有找到设备。"
+    },
+    "abort": {
+      "already_configured": "该设备已配置。",
+      "reauth_successful": "重新认证成功。"
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "小嘀 智能门锁 选项",
+        "data": {
+          "session_id": "sessionId",
+          "lock_mac": "锁的 MAC（可留空）"
+        }
+      }
+    },
+    "error": {
+      "auth": "sessionId 无效或已过期，请重新抓包获取。",
+      "cannot_connect": "无法连接服务器，请稍后重试。",
+      "lock_not_found": "该 MAC 下没有找到设备。"
+    }
+  }
+}

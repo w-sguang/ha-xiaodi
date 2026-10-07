@@ -1,0 +1,46 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "小嘀 智能门锁",
+        "description": "Paste the sessionId captured from the WeChat mini program. Leave lock MAC empty to auto-detect all locks.",
+        "data": {
+          "session_id": "sessionId",
+          "lock_mac": "Lock MAC (optional)"
+        }
+      },
+      "reauth_confirm": {
+        "title": "Re-authentication",
+        "description": "sessionId for {lock} expired. Please enter a new sessionId.",
+        "data": {
+          "session_id": "sessionId"
+        }
+      }
+    },
+    "error": {
+      "auth": "Invalid or expired sessionId. Please capture a new one.",
+      "cannot_connect": "Cannot reach server, try again later.",
+      "lock_not_found": "No device found for this MAC."
+    },
+    "abort": {
+      "already_configured": "Device already configured.",
+      "reauth_successful": "Re-authentication successful."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "小嘀 智能门锁 Options",
+        "data": {
+          "session_id": "sessionId",
+          "lock_mac": "Lock MAC (optional)"
+        }
+      }
+    },
+    "error": {
+      "auth": "Invalid or expired sessionId. Please capture a new one.",
+      "cannot_connect": "Cannot reach server, try again later.",
+      "lock_not_found": "No device found for this MAC."
+    }
+  }
+}
