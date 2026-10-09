@@ -14,6 +14,7 @@
 - 设备列表 / 详情
 - **开锁记录**（最近开锁、今日次数）
 - 每次开锁触发 HA 事件 `xiaodi_unlock`（带 `person` / `finger` / `method`）
+- 每次开锁触发一个**事件实体** `event.<锁>_开锁`（可在自动化 UI 里直接选）
 - sessionId 失效时自动提示「重新认证」
 
 ## 实体
@@ -24,6 +25,7 @@
 | `sensor.<锁>_最近开锁人` | 最近开锁的人（属性：`finger`/`method`）|
 | `sensor.<锁>_今日开锁次数` | 今日开锁次数 |
 | `binary_sensor.<锁>_今日有开锁` | 今日是否有人开锁 |
+| `event.<锁>_开锁` | 每次开锁触发一次的事件实体（事件类型「开锁」）|
 
 ## 事件 `xiaodi_unlock`
 
@@ -64,6 +66,38 @@ mode: queued
 ```
 
 按指纹分支：`condition: "{{ trigger.event.data.finger == '左手拇指' }}"`
+
+## 事件实体 `event.<锁>_开锁`（推荐，可视化可选）
+
+除总线事件外，每次开锁还会触发一个**事件实体**，可直接在自动化 UI 里选：
+**触发器 → 「事件收到 (Event received)」→ 目标 = 该实体 → 事件类型选「开锁」**。
+
+YAML：
+
+```yaml
+alias: 有人开锁
+triggers:
+  - trigger: event.received
+    target:
+      entity_id: event.xiao_di_q2p_kai_suo
+    options:
+      event_type:
+        - 开锁
+conditions:
+  - condition: template
+    value_template: "{{ trigger.to_state.attributes.person == '聪' }}"
+actions:
+  - action: notify.send_message
+    target:
+      entity_id: notify.living_room_play_text
+    data:
+      message: "欢迎 {{ trigger.to_state.attributes.person }} 回家"
+mode: single
+```
+
+> 事件实体触发后：`state` = 触发时间；属性含 `event_type` / `person` / `finger` / `method` / `date` / `time` / `content`。
+> 取数据用 `trigger.to_state.attributes.*`（注意：事件实体走的是 `to_state`，不是 `trigger.event.data`）。
+> 也可用普通「状态」触发器 —— 状态变成新时间戳就触发。
 
 ## 安装（HACS 自定义仓库）
 
